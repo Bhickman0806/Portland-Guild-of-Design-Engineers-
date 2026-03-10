@@ -11,7 +11,7 @@ import { ScrollToAnchor } from './components/ScrollToAnchor';
 import codeIcon from './assets/icons/Code.png';
 import messageCircleIcon from './assets/icons/Message circle.png';
 import eyeOffIcon from './assets/icons/Eye off.png';
-import lanternGif from './assets/pGPDsuportingSection.gif';
+const lanternGif = '/pGPDsuportingSection.gif';
 import './App.css';
 
 function App() {
