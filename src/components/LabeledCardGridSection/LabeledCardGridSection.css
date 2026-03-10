@@ -1,0 +1,63 @@
+.labeled-card-grid-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1072px;
+    margin: 0 auto var(--spacing-section) auto;
+    gap: 96px;
+    padding: 0 var(--spacing-edge);
+    box-sizing: border-box;
+}
+
+.labeled-card-grid-section__header {
+    width: 25%;
+    flex-shrink: 0;
+}
+
+.labeled-card-grid-section__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    /* 24px consistent horizontal and vertical margin */
+    width: 100%;
+    max-width: 944px;
+    /* Stop stretching leftward and preserve space-between layout */
+    align-items: stretch;
+}
+
+/* Override Card title typography based on Figma specs */
+.labeled-card-grid-section__grid .card-title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+/* Add some responsive behavior. Ensure cards can scale on smaller screens */
+@media (max-width: 1440px) {
+    .labeled-card-grid-section {
+        flex-direction: column;
+        gap: 64px;
+        /* Slightly larger gap between header and grid when stacked */
+    }
+
+    .labeled-card-grid-section__header {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .labeled-card-grid-section {
+        padding: 0 var(--spacing-md);
+    }
+
+    .labeled-card-grid-section__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .labeled-card-grid-section__grid .card-title {
+        font-size: 32px;
+    }
+}

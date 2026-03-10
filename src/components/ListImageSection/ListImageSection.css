@@ -1,0 +1,206 @@
+.list-image-section {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-text-primary);
+    /* The outermost component explicitly wraps layout */
+    width: 100%;
+    max-width: 1072px;
+    margin: 0 auto var(--spacing-section) auto;
+    /* inter-section spacing */
+    padding: 0 var(--spacing-edge);
+    /* Match hero padding logic for visual alignment */
+    box-sizing: border-box;
+}
+
+.list-image-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-image-subtitle {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-weight: var(--font-weight-light);
+    font-size: var(--text-2xl);
+    line-height: normal;
+    letter-spacing: var(--tracking-normal);
+    /* Use secondary text color mapping */
+    color: var(--color-text-secondary);
+}
+
+.list-image-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-normal);
+    font-size: var(--text-6xl);
+    line-height: normal;
+    letter-spacing: var(--tracking-hero);
+    text-transform: uppercase;
+}
+
+.list-image-content {
+    display: flex;
+}
+
+.list-image-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.list-image-step {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.list-image-step-number {
+    font-family: var(--font-serif);
+    font-weight: var(--font-weight-normal);
+    /* Jacquarda Bastarda 9 only has a 400 weight */
+    -webkit-text-stroke: 0.5px #424242;
+    /* CSS hack to visually "thin" the font by eating into the edges with the background color */
+    opacity: 0.8;
+    /* Visually soften the heavy numbers */
+    font-size: var(--text-2xl);
+    line-height: normal;
+    letter-spacing: var(--tracking-normal);
+    border-bottom: 1px solid var(--color-text-secondary);
+    /* Render the horizontal divider as body text color */
+    width: 100%;
+}
+
+.list-image-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.list-image-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+}
+
+.list-image-layered-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-image-layer {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+}
+
+/* Base Image Layer (image 1) */
+.list-image-layer.layer-1 {
+    position: relative;
+    z-index: 1;
+    /* Debugging: removed mix-blend-mode, opacity, and filter */
+}
+
+/* Middle Glow Layer (image 3) */
+.list-image-layer.layer-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    transform: scale(1.08);
+    /* Scale relative to layer 1 */
+    transform-origin: center center;
+    mix-blend-mode: luminosity;
+    filter: blur(2px);
+}
+
+/* Outer Glow Layer (image 2) */
+.list-image-layer.layer-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+    transform: scale(1.038);
+    /* Scale relative to layer 1 */
+    display: none;
+    /* Debugging: hidden */
+}
+
+/* Base Desktop configuration matching Property 1=Desktop component */
+.list-image-section--desktop {
+    gap: 32px;
+}
+
+.list-image-section--desktop .list-image-content {
+    flex-direction: row;
+    gap: 64px;
+}
+
+.list-image-section--desktop .list-image-steps {
+    flex: 1;
+}
+
+.list-image-section--desktop .list-image-media {
+    flex: 1;
+}
+
+
+/* Base Mobile configuration matching Property 1=Mobile component */
+.list-image-section--mobile {
+    gap: 96px;
+    /* In Figma, the mobile variant container has gap 96, though we suspect they really meant flex-direction column. The plan calls for stacking it. */
+    flex-direction: column;
+}
+
+.list-image-section--mobile .list-image-content {
+    flex-direction: column;
+    gap: 8px;
+    /* Inner margin based on Figma tree */
+}
+
+/* In mobile, everything stacks, and the step container takes full width */
+.list-image-section--mobile .list-image-steps {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .list-image-section {
+        padding: 0 var(--spacing-md);
+    }
+
+    .list-image-title {
+        font-size: min(48px, 12vw);
+        letter-spacing: 2px;
+    }
+
+    .list-image-section--desktop {
+        gap: 96px;
+    }
+
+    .list-image-section--desktop .list-image-content {
+        flex-direction: column;
+        gap: 32px;
+        /* Ensure there is sufficient visual gap between steps and gif */
+    }
+
+    .list-image-section--desktop .list-image-steps {
+        width: 100%;
+        flex: none;
+    }
+
+    .list-image-section--desktop .list-image-media {
+        flex: none;
+        width: 100%;
+    }
+}

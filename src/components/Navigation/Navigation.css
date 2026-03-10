@@ -1,0 +1,57 @@
+.navigation-section {
+    display: flex;
+    justify-content: center;
+    /* Fixed height is implicitly derived from typography + padding in Figma */
+    height: 55px;
+
+    /* Surface Styling */
+    border-bottom: 1px solid var(--lineMediumEmphasis, #424242);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.20) 0%, rgba(102, 102, 102, 0.20) 100%), var(--surfaceColor-surfaceMediumEmphasis, #101011);
+    box-shadow: 0 -5px 14.6px 0 rgba(0, 0, 0, 0.25) inset;
+
+    color: var(--color-text-primary);
+    width: 100%;
+    margin-bottom: var(--spacing-section);
+    /* Space between navigation and the next section */
+}
+
+.navigation-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1072px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-edge);
+    gap: 64px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.navigation-links-group {
+    display: flex;
+    flex-direction: row;
+    gap: 31px;
+}
+
+.navigation-link {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-normal);
+    line-height: normal;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: color 0.2s ease;
+}
+
+.navigation-link:hover {
+    color: var(--color-brand-primary);
+}
+
+@media (max-width: 768px) {
+    .navigation-section {
+        height: auto;
+        padding: 16px 0;
+    }
+}

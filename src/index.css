@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400&display=swap');
+
+:root {
+  --font-family-primary: 'Space Grotesk', system-ui, sans-serif;
+
+  /* Global Project Tokens */
+  --color-border: #333333;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-bg-card: #1A1A1A;
+  --color-bg-button: rgba(255, 255, 255, 0.1);
+  --color-bg: #000000;
+
+  --radius-sm: 8px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-edge: 48px;
+  --spacing-section: 120px;
+
+  /* Consolidated Global Typography Styles */
+  /* Font Families */
+  --font-sans: var(--font-family-primary);
+  --font-serif: 'Jacquarda Bastarda 9', system-ui, serif;
+  --font-display: 'Handjet', system-ui, sans-serif;
+  --font-mono: 'Geist', system-ui, monospace;
+
+  /* Font Weights */
+  --font-weight-light: 210;
+  --font-weight-normal: 300;
+  --font-weight-medium: 410;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+  --font-weight-hero: 630;
+
+  /* Font Sizes */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 14px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-4xl: 48px;
+  --text-6xl: 72px;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.48px;
+  --tracking-normal: 0px;
+  --tracking-widest: 2.4px;
+  --tracking-hero: 6.48px;
+
+  /* Colors mapped from Figma global styles that were not in the global project tokens */
+  --color-blue: rgb(77, 73, 252);
+  --color-code-gray: rgb(171, 178, 191);
+  --color-coral: rgb(255, 118, 118);
+  --color-cyan: rgb(0, 182, 255);
+  --shadow-drop-shadow-100: 0px 1px 4px 0 rgba(12, 12, 13, 0.05);
+  --shadow-drop-shadow-200: 0px 1px 4px 0 rgba(12, 12, 13, 0.05);
+  --shadow-drop-shadow-300: 0px 4px 4px -1px rgba(12, 12, 13, 0.05);
+  --shadow-drop-shadow-400: 0px 4px 4px -4px rgba(12, 12, 13, 0.05);
+  --shadow-drop-shadow-500: 0px 4px 4px -4px rgba(12, 12, 13, 0.05);
+  --shadow-drop-shadow-600: 0px 16px 32px -8px rgba(12, 12, 13, 0.40);
+  --color-gradient-surface: rgb(16, 16, 17);
+  --color-hot-red: rgb(255, 55, 55);
+  --color-image-placeholder: rgb(227, 227, 227);
+  --color-k: rgb(0, 0, 0);
+  --color-kelly-green: rgb(36, 203, 113);
+  --color-purple: rgb(135, 79, 255);
+  --color-w: rgb(255, 255, 255);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--font-family-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.page-main {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+}

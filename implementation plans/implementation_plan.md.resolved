@@ -1,0 +1,55 @@
+# Goal Description
+
+The objective is to plan the architecture and deployment strategy to transition the current React/Vite project into a modern, scalable, statically generated (SSG) web application. This involves migrating to **Astro**, integrating **Sanity** as a headless CMS, establishing source control with **Git**, and deploying to **Vercel**. We will also plan for open-source accessibility, allowing users to fork the site, view a publicly hosted Storybook, and download the source Figma design file, all without impacting the live production environment.
+
+## User Review Required
+
+Please review the proposed architecture and verify if this aligns with your vision. specifically:
+1. **GitHub Repository**: Are you open to hosting the code on a public GitHub repository? This natively provides the "forking" mechanism.
+2. **CMS Hosting**: Sanity Studio can be hosted within its own subfolder in this repo, or as a completely separate repository. The plan assumes placing it in a `/studio` subfolder for a unified codebase (monorepo style). Is this preferrable?
+
+## Proposed Architecture and Steps
+
+### 1. Source Control Setup (Git & GitHub)
+- **Action**: Initialize a Git repository locally and commit the current React/Vite and Storybook setup.
+- **Action**: Create a public generic GitHub repository and push the code.
+- **Result**: The project is safely version-controlled. Developers can fork the repository to experiment or build their own versions.
+
+### 2. Migrating to Astro (Static Site Generation)
+Since your project is currently built with React and Vite, it is perfectly positioned to migrate to Astro.
+- **Action**: Install `astro` and the `@astrojs/react` integration.
+- **Action**: Restructure the app to use Astro's file-based routing (`src/pages/*.astro`).
+- **Action**: Wrap the existing React components inside Astro pages. By default, Astro renders React to static HTML, meaning blazing fast load times. We can use `client:load` or `client:idle` directives ONLY on components that need browser interactivity.
+- **Result**: A highly performant static site.
+
+### 3. Headless CMS Integration (Sanity)
+- **Action**: Initialize a Sanity project locally (e.g., in a `studio/` folder).
+- **Action**: Model the content schemas (e.g., Hero sections, Labeled Cards, Navigation links) based on your designs.
+- **Action**: Use a Sanity client to fetch data during Astro's build step. Vercel will rebuild the static site whenever you publish new content via Sanity Webhooks.
+
+### 4. Vercel Hosting & Staging Environments
+- **Action**: Connect the GitHub repository directly to Vercel.
+- **Action**: Configure the Vercel project to build the Astro site (`npm run build` targeting `dist`).
+- **Result**: Vercel handles production deployments securely. Crucially, **any Pull Request or branch pushed to GitHub will automatically generate a unique Staging URL** (Preview Deployment).
+
+### 5. Public Storybook Deployment
+To host Storybook without bloating or affecting the live site:
+- **Action**: Set up a **second separate project in Vercel**, connected to the exact same GitHub repository.
+- **Action**: Configure this second project to run `npm run build-storybook` and output to `storybook-static`.
+- **Result**: You get an isolated, dedicated URL specifically for Storybook (e.g., `storybook.yourdomain.com`).
+
+### 6. Design Openness (Figma / "Sigma" File)
+- **Action**: Export the raw `.fig` file from Figma.
+- **Action**: Store this file in the `public/` directory of the Astro project (e.g., `public/design-source.fig`), or upload it as a release asset on GitHub.
+- **Action**: Provide a clear "Download Design" button on the site or within the repository's README.
+
+## Verification Plan
+
+### Automated/Build Verification
+- Run `npm run build` locally to verify the Astro site compiles correctly statically.
+- Run `npm run build-storybook` locally to verify the isolated component playground compiles.
+
+### Manual Verification
+- **Staging Test**: Push a test commit to a new branch, go to the Vercel dashboard, and click the generated Staging URL to ensure the environment is identically mirroring production pre-merge.
+- **CMS Test**: Update a text field in the deployed Sanity Studio, wait for the Vercel webhook to trigger, and verify the main site updates.
+- **File Test**: Manually click the hosted Figma download link from the live site to ensure the `.fig` file correctly downloads without corruption.

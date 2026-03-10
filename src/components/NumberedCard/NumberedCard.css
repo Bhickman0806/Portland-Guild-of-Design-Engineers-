@@ -1,0 +1,58 @@
+.numbered-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* itemSpacing: 8 */
+    padding: var(--spacing-xs) var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+    /* paddingTop: 16, paddingRight: 24, paddingBottom: 24, paddingLeft: 24 */
+    border-radius: 10px;
+    border: 1px solid rgba(51, 51, 51, 1);
+    /* r:0.2, g:0.2, b:0.2 */
+    background-color: var(--color-bg-card, #0a0a0a);
+    /* Match base dark background or fallback */
+    width: 100%;
+    max-width: 460px;
+    /* From Figma absoluteBoundingBox width ~460 inside its container */
+    box-sizing: border-box;
+}
+
+.numbered-card-number {
+    color: #F9F7ED;
+    /* Subtitle */
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-style: normal;
+    font-weight: var(--font-weight-light);
+    line-height: 120%;
+    /* 38.4px */
+    margin: 0;
+}
+
+.numbered-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-normal);
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--color-text-primary, #ededed);
+    line-height: 1;
+    /* 32px or close to it */
+    margin: 0;
+}
+
+.numbered-card-text {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    color: rgba(189, 189, 189, 1);
+    /* Figma color: r: 0.739, g: 0.739, b: 0.739 */
+    line-height: 1.6875;
+    /* 27px from Figma */
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .numbered-card {
+        max-width: 100%;
+    }
+}
