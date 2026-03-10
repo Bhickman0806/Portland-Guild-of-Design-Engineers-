@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import { Card } from '../Card/Card.jsx';
 import './Hero.css';
 
-export const Hero = ({ title, cards, platform }) => {
+export const Hero = ({ title, cards, platform, backgroundImage }) => {
     const isMobile = platform === 'Mobile';
     const heroClass = `hero ${isMobile ? 'hero-mobile' : 'hero-desktop'}`;
 
     return (
         <section className={heroClass}>
-            {/* Background Video */}
-            <video
-                className="hero-video-bg"
-                autoPlay
-                loop
-                muted
-                playsInline
-                src="/pGDEheroSectionBackPlate.mp4"
-            />
+            {/* Background Image or Video */}
+            {backgroundImage ? (
+                <img src={backgroundImage} alt="Hero Background" className="hero-video-bg" style={{ objectFit: 'cover' }} />
+            ) : (
+                <video
+                    className="hero-video-bg"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    src="/pGDEheroSectionBackPlate.mp4"
+                />
+            )}
             {/* Overlay to ensure text legibility if needed */}
             <div className="hero-overlay"></div>
 

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Hero } from './components/Hero/Hero';
 import { Navigation } from './components/Navigation/Navigation';
@@ -12,9 +13,39 @@ import codeIcon from './assets/icons/Code.png';
 import messageCircleIcon from './assets/icons/Message circle.png';
 import eyeOffIcon from './assets/icons/Eye off.png';
 const lanternGif = '/pGPDsuportingSection.gif';
+import { client } from './lib/sanity';
+import imageUrlBuilder from '@sanity/image-url';
 import './App.css';
 
+const builder = imageUrlBuilder(client);
+function urlFor(source) {
+  return builder.image(source);
+}
+
 function App() {
+  const [heroData, setHeroData] = useState(null);
+  const [heroCardsData, setHeroCardsData] = useState(null);
+  const [membershipData, setMembershipData] = useState(null);
+  const [salonsData, setSalonsData] = useState(null);
+
+  useEffect(() => {
+    client.fetch(`*[_type == "hero"][0]`)
+      .then((data) => setHeroData(data))
+      .catch(console.error);
+
+    client.fetch(`*[_type == "heroCards"][0]`)
+      .then((data) => setHeroCardsData(data))
+      .catch(console.error);
+
+    client.fetch(`*[_type == "membershipCriteria"][0]`)
+      .then((data) => setMembershipData(data))
+      .catch(console.error);
+
+    client.fetch(`*[_type == "salons"][0]`)
+      .then((data) => setSalonsData(data))
+      .catch(console.error);
+  }, []);
+
   const heroCards = [
     {
       title: "For Design Engineers",
@@ -106,22 +137,52 @@ function App() {
           element={
             <div className="app-container">
               <Hero
-                title="PORTLAND GUILD OF DESIGN ENGINEERS"
-                cards={heroCards}
+                title={heroData?.title || "PORTLAND GUILD OF DESIGN ENGINEERS"}
+                backgroundImage={heroData?.backgroundImage ? urlFor(heroData.backgroundImage).url() : undefined}
+                cards={
+                  heroCardsData?.cards?.length > 0
+                    ? heroCardsData.cards.map(c => ({
+                      title: c.title,
+                      bodyText: c.bodyText,
+                      variant: 'Default',
+                      direction: 'Horizontal',
+                      showButton: false,
+                      icon: <img
+                        src={c.icon === 'code' ? codeIcon : c.icon === 'eyeOff' ? eyeOffIcon : messageCircleIcon}
+                        alt={`${c.icon} Icon`}
+                        style={{ width: '24px', height: '24px', filter: 'brightness(0) invert(1)' }}
+                      />
+                    }))
+                    : heroCards
+                }
                 platform="Desktop"
               />
               <Navigation />
               <ListImageSection
-                subtitle="The Salons"
-                title="AN OPEN TABLE FOR ACTIVE PRACTITIONERS"
-                items={listItems}
+                subtitle={salonsData?.subtitle || "The Salons"}
+                title={salonsData?.title || "AN OPEN TABLE FOR ACTIVE PRACTITIONERS"}
+                items={
+                  salonsData?.items?.length > 0
+                    ? salonsData.items.map(item => ({
+                      number: item.number,
+                      cardProps: {
+                        title: item.title,
+                        bodyText: item.bodyText,
+                        variant: 'Default',
+                        direction: 'Vertical',
+                        showButton: false,
+                        showAsset: false,
+                      }
+                    }))
+                    : listItems
+                }
                 imageSrc={lanternGif}
                 platform="Desktop"
               />
               <LabeledCardGridSection
-                title="Membership Criteria"
-                subtitle="What we’re looking for"
-                cards={labeledCards}
+                title={membershipData?.title || "Membership Criteria"}
+                subtitle={membershipData?.subtitle || "What we’re looking for"}
+                cards={membershipData?.cards?.length > 0 ? membershipData.cards : labeledCards}
               />
               <Footer />
             </div>
