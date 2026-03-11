@@ -27,6 +27,8 @@ function App() {
   const [heroCardsData, setHeroCardsData] = useState(null);
   const [membershipData, setMembershipData] = useState(null);
   const [salonsData, setSalonsData] = useState(null);
+  const [navigationData, setNavigationData] = useState(null);
+  const [footerData, setFooterData] = useState(null);
 
   useEffect(() => {
     client.fetch(`*[_type == "hero"][0]`)
@@ -43,6 +45,14 @@ function App() {
 
     client.fetch(`*[_type == "salons"][0]`)
       .then((data) => setSalonsData(data))
+      .catch(console.error);
+      
+    client.fetch(`*[_type == "navigation"][0]`)
+      .then((data) => setNavigationData(data))
+      .catch(console.error);
+
+    client.fetch(`*[_type == "footer"][0]`)
+      .then((data) => setFooterData(data))
       .catch(console.error);
   }, []);
 
@@ -157,7 +167,10 @@ function App() {
                 }
                 platform="Desktop"
               />
-              <Navigation />
+              <Navigation 
+                links={navigationData?.links} 
+                actionLink={navigationData?.actionLink} 
+              />
               <ListImageSection
                 subtitle={salonsData?.subtitle || "The Salons"}
                 title={salonsData?.title || "AN OPEN TABLE FOR ACTIVE PRACTITIONERS"}
@@ -184,7 +197,10 @@ function App() {
                 subtitle={membershipData?.subtitle || "What we’re looking for"}
                 cards={membershipData?.cards?.length > 0 ? membershipData.cards : labeledCards}
               />
-              <Footer />
+              <Footer 
+                links={footerData?.links}
+                actionLink={footerData?.actionLink}
+              />
             </div>
           }
         />
